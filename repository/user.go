@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"go-mux-gorm/entity"
+	"go-chi-gorm/entity"
 
 	"gorm.io/gorm"
 )

@@ -1,27 +1,29 @@
 package router
 
 import (
-	"go-mux-gorm/handler"
-	"go-mux-gorm/repository"
-	"net/http"
+	"go-chi-gorm/handler"
+	"go-chi-gorm/repository"
 
-	"github.com/gorilla/mux"
+	"github.com/go-chi/chi"
 	"gorm.io/gorm"
 )
 
 type UserRouter struct {
-	router  *mux.Router
+	router  *chi.Mux
 	handler *handler.UserHandler
 	db      *gorm.DB
 }
 
-func NewUserRouter(r *mux.Router, db *gorm.DB) *UserRouter {
+func NewUserRouter(r *chi.Mux, db *gorm.DB) *UserRouter {
 	userRepo := repository.NewUserRepository(db)
 	return &UserRouter{router: r, db: db, handler: handler.NewUserHandler(userRepo)}
 }
 
-func (u *UserRouter) Init() {
-	u.router.HandleFunc("/users", u.handler.Index).Methods(http.MethodGet)
-	u.router.HandleFunc("/users/{id}", u.handler.Show).Methods(http.MethodGet)
-	u.router.HandleFunc("/users", u.handler.Create).Methods(http.MethodPost)
+func (r *UserRouter) Init() {
+	r.router.Route("/users", func(s chi.Router) {
+
+		s.Get("/", r.handler.Index)
+		s.Get("/{id}", r.handler.Show)
+		s.Post("/", r.handler.Create)
+	})
 }

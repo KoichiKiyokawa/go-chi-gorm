@@ -1,9 +1,10 @@
-module go-mux-gorm
+module go-chi-gorm
 
 go 1.17
 
 require (
-	github.com/gorilla/mux v1.8.0
+	github.com/go-chi/chi v1.5.4
+	github.com/go-chi/cors v1.2.0
 	github.com/swaggo/http-swagger v1.1.2
 	github.com/swaggo/swag v1.7.3
 	gorm.io/driver/sqlite v1.1.6

@@ -2,12 +2,12 @@ package handler
 
 import (
 	"encoding/json"
-	"go-mux-gorm/entity"
-	"go-mux-gorm/repository"
+	"go-chi-gorm/entity"
+	"go-chi-gorm/repository"
 	"net/http"
 	"strconv"
 
-	"github.com/gorilla/mux"
+	"github.com/go-chi/chi"
 )
 
 type UserHandler struct {
@@ -40,8 +40,7 @@ func (u *UserHandler) Index(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} entity.User
 // @Router /users/{id} [get]
 func (u *UserHandler) Show(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id, err := strconv.Atoi(vars["id"])
+	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 	if err != nil {
 		respondError(w, err)
 		return

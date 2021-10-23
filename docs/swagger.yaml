@@ -19,7 +19,7 @@ definitions:
 info:
   contact: {}
   description: This is a practice.
-  title: go-mux-gorm
+  title: go-chi-gorm
   version: "0.1"
 paths:
   /users:
@@ -33,23 +33,6 @@ paths:
               $ref: '#/definitions/entity.User'
             type: array
       summary: ユーザ一覧
-      tags:
-      - user
-  /users/{id}:
-    get:
-      description: 指定したユーザを返却する
-      parameters:
-      - description: ユーザのID
-        in: path
-        name: id
-        required: true
-        type: string
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/entity.User'
-      summary: ユーザ詳細
       tags:
       - user
     post:
@@ -67,6 +50,23 @@ paths:
           schema:
             $ref: '#/definitions/entity.User'
       summary: ユーザ作成
+      tags:
+      - user
+  /users/{id}:
+    get:
+      description: 指定したユーザを返却する
+      parameters:
+      - description: ユーザのID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.User'
+      summary: ユーザ詳細
       tags:
       - user
 swagger: "2.0"

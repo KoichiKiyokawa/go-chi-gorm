@@ -1,23 +1,37 @@
 package main
 
 import (
-	"go-mux-gorm/router"
+	"go-chi-gorm/router"
 	"log"
 	"net/http"
 
-	_ "go-mux-gorm/docs"
+	_ "go-chi-gorm/docs"
 
-	"github.com/gorilla/mux"
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/cors"
 	httpSwagger "github.com/swaggo/http-swagger"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
-// @title go-mux-gorm
+// @title go-chi-gorm
 // @version 0.1
 // @description This is a practice.
 func main() {
-	r := mux.NewRouter()
+	r := chi.NewRouter()
+	r.Use(middleware.Logger)
+	r.Use(middleware.Recoverer)
+	r.Use(cors.Handler(cors.Options{
+		// AllowedOrigins:   []string{"https://foo.com"}, // Use this to allow specific origin hosts
+		AllowedOrigins: []string{"https://*", "http://*"},
+		// AllowOriginFunc:  func(r *http.Request, origin string) bool { return true },
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+		ExposedHeaders:   []string{"Link"},
+		AllowCredentials: true,
+		MaxAge:           300, // Maximum value not ignored by any of major browsers
+	}))
 
 	db, err := gorm.Open(sqlite.Open("dev.db"), &gorm.Config{})
 
@@ -27,16 +41,7 @@ func main() {
 
 	router.NewUserRouter(r, db).Init()
 
-	r.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
-
-	r.Use(CORSMiddleware)
+	r.Get("/swagger/*", httpSwagger.WrapHandler)
 
 	log.Fatal(http.ListenAndServe(":8080", r))
-}
-
-func CORSMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		next.ServeHTTP(w, r)
-	})
 }

@@ -1,4 +1,4 @@
-# go-mux-gorm
+# go-chi-gorm
 
 ## swagger の自動生成方法
 

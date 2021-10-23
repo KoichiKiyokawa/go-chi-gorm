@@ -41,32 +41,6 @@ var doc = `{
                         }
                     }
                 }
-            }
-        },
-        "/users/{id}": {
-            "get": {
-                "description": "指定したユーザを返却する",
-                "tags": [
-                    "user"
-                ],
-                "summary": "ユーザ詳細",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "ユーザのID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/entity.User"
-                        }
-                    }
-                }
             },
             "post": {
                 "description": "ユーザを作成する",
@@ -83,6 +57,32 @@ var doc = `{
                         "schema": {
                             "$ref": "#/definitions/entity.User"
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.User"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "description": "指定したユーザを返却する",
+                "tags": [
+                    "user"
+                ],
+                "summary": "ユーザ詳細",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ユーザのID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -139,7 +139,7 @@ var SwaggerInfo = swaggerInfo{
 	Host:        "",
 	BasePath:    "",
 	Schemes:     []string{},
-	Title:       "go-mux-gorm",
+	Title:       "go-chi-gorm",
 	Description: "This is a practice.",
 }
 

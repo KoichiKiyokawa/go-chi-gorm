@@ -1,8 +1,8 @@
 package main
 
 import (
-	"go-mux-gorm/entity"
-	"go-mux-gorm/seed/seeds"
+	"go-chi-gorm/entity"
+	"go-chi-gorm/seed/seeds"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

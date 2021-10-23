@@ -7,7 +7,7 @@ import (
 
 func respondJson(w http.ResponseWriter, data interface{}) {
 	w.WriteHeader(http.StatusOK)
-	w.Header().Add("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(data)
 }
 

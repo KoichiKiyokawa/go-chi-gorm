@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a practice.",
-        "title": "go-mux-gorm",
+        "title": "go-chi-gorm",
         "contact": {},
         "version": "0.1"
     },
@@ -25,32 +25,6 @@
                         }
                     }
                 }
-            }
-        },
-        "/users/{id}": {
-            "get": {
-                "description": "指定したユーザを返却する",
-                "tags": [
-                    "user"
-                ],
-                "summary": "ユーザ詳細",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "ユーザのID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/entity.User"
-                        }
-                    }
-                }
             },
             "post": {
                 "description": "ユーザを作成する",
@@ -67,6 +41,32 @@
                         "schema": {
                             "$ref": "#/definitions/entity.User"
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.User"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "description": "指定したユーザを返却する",
+                "tags": [
+                    "user"
+                ],
+                "summary": "ユーザ詳細",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ユーザのID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
