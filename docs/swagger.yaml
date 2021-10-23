@@ -2,25 +2,19 @@ definitions:
   entity.User:
     properties:
       createdAt:
+        example: "2021-10-24T00:12:39.469332+09:00"
         type: string
-      deletedAt:
-        $ref: '#/definitions/gorm.DeletedAt'
       email:
+        example: foo@example.com
         type: string
       id:
         type: integer
       name:
+        example: Taro Yamada
         type: string
       updatedAt:
+        example: "2021-10-24T00:12:39.469332+09:00"
         type: string
-    type: object
-  gorm.DeletedAt:
-    properties:
-      time:
-        type: string
-      valid:
-        description: Valid is true if Time is not NULL
-        type: boolean
     type: object
 info:
   contact: {}

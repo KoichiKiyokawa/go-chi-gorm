@@ -5,3 +5,5 @@
 ```shell
 ~/go/bin/swag init --parseDependency --parseInternal
 ```
+
+http://localhost:8080/swagger/index.html にアクセス

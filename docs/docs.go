@@ -43,34 +43,23 @@ var doc = `{
             "type": "object",
             "properties": {
                 "createdAt": {
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "$ref": "#/definitions/gorm.DeletedAt"
+                    "type": "string",
+                    "example": "2021-10-24T00:12:39.469332+09:00"
                 },
                 "email": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "foo@example.com"
                 },
                 "id": {
                     "type": "integer"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Taro Yamada"
                 },
                 "updatedAt": {
-                    "type": "string"
-                }
-            }
-        },
-        "gorm.DeletedAt": {
-            "type": "object",
-            "properties": {
-                "time": {
-                    "type": "string"
-                },
-                "valid": {
-                    "description": "Valid is true if Time is not NULL",
-                    "type": "boolean"
+                    "type": "string",
+                    "example": "2021-10-24T00:12:39.469332+09:00"
                 }
             }
         }
