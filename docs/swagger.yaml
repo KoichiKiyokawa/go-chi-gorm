@@ -29,6 +29,8 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/entity.User'
+            items:
+              $ref: '#/definitions/entity.User'
+            type: array
       summary: ユーザ一覧
 swagger: "2.0"
