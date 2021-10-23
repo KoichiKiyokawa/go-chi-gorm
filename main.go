@@ -5,11 +5,17 @@ import (
 	"log"
 	"net/http"
 
+	_ "go-mux-gorm/docs"
+
 	"github.com/gorilla/mux"
+	httpSwagger "github.com/swaggo/http-swagger"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
+// @title go-mux-gorm
+// @version 0.1
+// @description This is a practice.
 func main() {
 	r := mux.NewRouter()
 
@@ -20,6 +26,9 @@ func main() {
 	}
 
 	router.NewUserRouter(r, db).Init()
+
+	r.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
+
 	r.Use(CORSMiddleware)
 
 	log.Fatal(http.ListenAndServe(":8080", r))

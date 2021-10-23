@@ -6,6 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// User example
 type User struct {
 	ID        uint           `gorm:"primaryKey" json:"id"`
 	CreatedAt time.Time      `json:"createdAt"`

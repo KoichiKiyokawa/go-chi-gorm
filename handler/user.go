@@ -18,6 +18,10 @@ func NewUserHandler(userRepo *repository.UserRepository) *UserHandler {
 	return &UserHandler{userRepo: userRepo}
 }
 
+// @Summary ユーザ一覧
+// @Description ユーザ一覧を返却する
+// @Success 200 {object} entity.User
+// @Router /users/{id} [get]
 func (u *UserHandler) Index(w http.ResponseWriter, r *http.Request) {
 	users, err := u.userRepo.FindAll()
 	if err != nil {

@@ -1,0 +1,40 @@
+definitions:
+  entity.User:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+info:
+  contact: {}
+  description: This is a practice.
+  title: go-mux-gorm
+  version: "0.1"
+paths:
+  /users/{id}:
+    get:
+      description: ユーザ一覧を返却する
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.User'
+      summary: ユーザ一覧
+swagger: "2.0"
