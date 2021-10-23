@@ -23,9 +23,12 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/users/{id}": {
+        "/users": {
             "get": {
                 "description": "ユーザ一覧を返却する",
+                "tags": [
+                    "user"
+                ],
                 "summary": "ユーザ一覧",
                 "responses": {
                     "200": {
@@ -35,6 +38,58 @@ var doc = `{
                             "items": {
                                 "$ref": "#/definitions/entity.User"
                             }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "description": "指定したユーザを返却する",
+                "tags": [
+                    "user"
+                ],
+                "summary": "ユーザ詳細",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ユーザのID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.User"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "ユーザを作成する",
+                "tags": [
+                    "user"
+                ],
+                "summary": "ユーザ作成",
+                "parameters": [
+                    {
+                        "description": "作成するユーザのデータ",
+                        "name": "user_data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.User"
                         }
                     }
                 }

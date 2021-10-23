@@ -22,7 +22,7 @@ info:
   title: go-mux-gorm
   version: "0.1"
 paths:
-  /users/{id}:
+  /users:
     get:
       description: ユーザ一覧を返却する
       responses:
@@ -33,4 +33,40 @@ paths:
               $ref: '#/definitions/entity.User'
             type: array
       summary: ユーザ一覧
+      tags:
+      - user
+  /users/{id}:
+    get:
+      description: 指定したユーザを返却する
+      parameters:
+      - description: ユーザのID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.User'
+      summary: ユーザ詳細
+      tags:
+      - user
+    post:
+      description: ユーザを作成する
+      parameters:
+      - description: 作成するユーザのデータ
+        in: body
+        name: user_data
+        required: true
+        schema:
+          $ref: '#/definitions/entity.User'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.User'
+      summary: ユーザ作成
+      tags:
+      - user
 swagger: "2.0"
