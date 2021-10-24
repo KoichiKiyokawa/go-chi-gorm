@@ -1,4 +1,25 @@
 definitions:
+  entity.Post:
+    properties:
+      body:
+        example: body
+        type: string
+      createdAt:
+        example: "2021-10-24T00:12:39.469332+09:00"
+        type: string
+      id:
+        type: integer
+      title:
+        example: title
+        type: string
+      updatedAt:
+        example: "2021-10-24T00:12:39.469332+09:00"
+        type: string
+      user:
+        $ref: '#/definitions/entity.User'
+      userId:
+        type: integer
+    type: object
   entity.User:
     properties:
       createdAt:
@@ -12,6 +33,10 @@ definitions:
       name:
         example: Taro Yamada
         type: string
+      posts:
+        items:
+          $ref: '#/definitions/entity.Post'
+        type: array
       updatedAt:
         example: "2021-10-24T00:12:39.469332+09:00"
         type: string
@@ -22,6 +47,53 @@ info:
   title: go-chi-gorm
   version: "0.1"
 paths:
+  /posts:
+    get:
+      description: 投稿一覧を返却する
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Post'
+            type: array
+      summary: 投稿一覧
+      tags:
+      - post
+    post:
+      description: 投稿を作成する
+      parameters:
+      - description: 作成する投稿のデータ
+        in: body
+        name: post_data
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Post'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Post'
+      summary: 投稿作成
+      tags:
+      - post
+  /posts/{id}:
+    get:
+      description: 指定した投稿を返却する
+      parameters:
+      - description: 投稿のID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Post'
+      summary: 投稿詳細
+      tags:
+      - post
   /users:
     get:
       description: ユーザ一覧を返却する
@@ -67,6 +139,19 @@ paths:
           schema:
             $ref: '#/definitions/entity.User'
       summary: ユーザ詳細
+      tags:
+      - user
+  /users/{id}/posts:
+    get:
+      description: あるユーザの投稿一覧を返却する
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Post'
+            type: array
+      summary: ユーザの投稿一覧
       tags:
       - user
 swagger: "2.0"

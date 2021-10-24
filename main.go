@@ -40,6 +40,7 @@ func main() {
 	}
 
 	router.NewUserRouter(r, db).Init()
+	router.NewPostRouter(r, db).Init()
 
 	r.Get("/swagger/*", httpSwagger.WrapHandler)
 

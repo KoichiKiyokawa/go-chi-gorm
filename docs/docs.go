@@ -23,6 +23,78 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/posts": {
+            "get": {
+                "description": "投稿一覧を返却する",
+                "tags": [
+                    "post"
+                ],
+                "summary": "投稿一覧",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entity.Post"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "投稿を作成する",
+                "tags": [
+                    "post"
+                ],
+                "summary": "投稿作成",
+                "parameters": [
+                    {
+                        "description": "作成する投稿のデータ",
+                        "name": "post_data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.Post"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.Post"
+                        }
+                    }
+                }
+            }
+        },
+        "/posts/{id}": {
+            "get": {
+                "description": "指定した投稿を返却する",
+                "tags": [
+                    "post"
+                ],
+                "summary": "投稿詳細",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "投稿のID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.Post"
+                        }
+                    }
+                }
+            }
+        },
         "/users": {
             "get": {
                 "description": "ユーザ一覧を返却する",
@@ -94,9 +166,59 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/users/{id}/posts": {
+            "get": {
+                "description": "あるユーザの投稿一覧を返却する",
+                "tags": [
+                    "user"
+                ],
+                "summary": "ユーザの投稿一覧",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entity.Post"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "entity.Post": {
+            "type": "object",
+            "properties": {
+                "body": {
+                    "type": "string",
+                    "example": "body"
+                },
+                "createdAt": {
+                    "type": "string",
+                    "example": "2021-10-24T00:12:39.469332+09:00"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string",
+                    "example": "title"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2021-10-24T00:12:39.469332+09:00"
+                },
+                "user": {
+                    "$ref": "#/definitions/entity.User"
+                },
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
         "entity.User": {
             "type": "object",
             "properties": {
@@ -114,6 +236,12 @@ var doc = `{
                 "name": {
                     "type": "string",
                     "example": "Taro Yamada"
+                },
+                "posts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/entity.Post"
+                    }
                 },
                 "updatedAt": {
                     "type": "string",

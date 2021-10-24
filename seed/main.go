@@ -13,7 +13,8 @@ func main() {
 	if err != nil {
 		panic("failed to connect database")
 	}
-	db.AutoMigrate(&entity.User{})
+	db.AutoMigrate(&entity.User{}, &entity.Post{})
 
 	seeds.SeedUsers(db)
+	seeds.SeedPosts(db)
 }
