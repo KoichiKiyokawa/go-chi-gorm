@@ -14,7 +14,7 @@ type PostRouter struct {
 	db      *gorm.DB
 }
 
-func NewPostRouter(r *chi.Mux, db *gorm.DB) *PostRouter {
+func newPostRouter(r *chi.Mux, db *gorm.DB) *PostRouter {
 	postRepo := repository.NewPostRepository(db)
 	return &PostRouter{router: r, db: db, handler: handler.NewPostHandler(postRepo)}
 }

@@ -12,7 +12,6 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
-	httpSwagger "github.com/swaggo/http-swagger"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -49,10 +48,7 @@ func main() {
 		panic("failed to connect database")
 	}
 
-	router.NewUserRouter(r, db).Init()
-	router.NewPostRouter(r, db).Init()
-
-	r.Get("/swagger/*", httpSwagger.WrapHandler)
+	router.NewCoreRouter(r, db).Init()
 
 	log.Fatal(http.ListenAndServe(":8080", r))
 }

@@ -14,7 +14,7 @@ type UserRouter struct {
 	db      *gorm.DB
 }
 
-func NewUserRouter(r *chi.Mux, db *gorm.DB) *UserRouter {
+func newUserRouter(r *chi.Mux, db *gorm.DB) *UserRouter {
 	userRepo := repository.NewUserRepository(db)
 	return &UserRouter{router: r, db: db, handler: handler.NewUserHandler(userRepo)}
 }
