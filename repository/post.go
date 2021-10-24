@@ -28,7 +28,7 @@ func (r *PostRepository) FindAll() ([]entity.Post, error) {
 
 func (r *PostRepository) FindAllByUserId(userID int) ([]entity.Post, error) {
 	var posts []entity.Post
-	result := r.db.Joins("User").Where("user_id = ?", userID).Find(&posts)
+	result := r.db.Joins("User").Where("posts.user_id = ?", userID).Find(&posts)
 	return posts, result.Error
 }
 
