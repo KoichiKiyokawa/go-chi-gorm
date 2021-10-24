@@ -17,3 +17,7 @@ type Post struct {
 	UserID    uint           `json:"userId"`
 	User      User
 }
+
+func (p *Post) isLongTitle() bool {
+	return len(p.Title) >= 30
+}
