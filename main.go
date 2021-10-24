@@ -4,6 +4,8 @@ import (
 	"go-chi-gorm/router"
 	"log"
 	"net/http"
+	"os"
+	"time"
 
 	_ "go-chi-gorm/docs"
 
@@ -13,6 +15,7 @@ import (
 	httpSwagger "github.com/swaggo/http-swagger"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 // @title go-chi-gorm
@@ -33,7 +36,14 @@ func main() {
 		MaxAge:           300, // Maximum value not ignored by any of major browsers
 	}))
 
-	db, err := gorm.Open(sqlite.Open("dev.db"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open("dev.db"), &gorm.Config{Logger: logger.New(
+		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
+		logger.Config{
+			SlowThreshold:             time.Second, // Slow SQL threshold
+			LogLevel:                  logger.Info, // Log level
+			IgnoreRecordNotFoundError: true,        // Ignore ErrRecordNotFound error for logger
+			Colorful:                  false,       // Disable color
+		})})
 
 	if err != nil {
 		panic("failed to connect database")
